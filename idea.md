@@ -15,3 +15,9 @@ Embedding libraries we could use:
 - NLTK
 
 first, let's try with a basic bag of words
+
+### Upgrade pre-processing
+
+there is date and time in the text data, while we can't just keep it as it is, we can extract the date and time and replace it by a token. For example, replacing every date possible by the token "DATE" and every time possible by the token "TIME". We can also replace every number by the token "NUMBER".
+
+this could help to classify when there is for example a Serial number or some collection object have a date in their name.
