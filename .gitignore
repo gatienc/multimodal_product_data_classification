@@ -1,5 +1,6 @@
 src/data/images/
 src/data/images.zip
+*/datasets/
 #python env
 .venv/
 
