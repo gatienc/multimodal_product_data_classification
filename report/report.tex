@@ -1,0 +1,26 @@
+\documentclass{article}
+% Packages and global settings here
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{natbib}
+
+\begin{document}
+	
+	% Include the start page
+	\input{titlepage.tex} % Make sure 'titlepage.tex' is in the same directory
+	
+	% Include the introduction
+	\input{introduction.tex} % Make sure 'introduction.tex' is in the same directory
+	
+	% Main content starts
+	\input{chapter1.tex} % Make sure 'chapter1.tex' is in the same directory
+	
+	% Include literature
+	\input{literature.tex} % Make sure 'literature.tex' is in the same directory
+	
+	% References
+	\bibliographystyle{plain}
+	\bibliography{your-bibliography-file} % Replace with the name of your bibliography file
+	
+\end{document}
