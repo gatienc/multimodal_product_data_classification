@@ -3,24 +3,25 @@
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{amsmath}
-\usepackage{natbib}
+\usepackage[backend=biber, style=apa]{biblatex}
+\addbibresource{sources.bib}		
 
 \begin{document}
-	
+
 	% Include the start page
-	\input{titlepage.tex} % Make sure 'titlepage.tex' is in the same directory
+	\input{titlepage.tex}
 	
 	% Include the introduction
-	\input{introduction.tex} % Make sure 'introduction.tex' is in the same directory
+	\input{introduction.tex} 
 	
 	% Main content starts
-	\input{chapter1.tex} % Make sure 'chapter1.tex' is in the same directory
+	\input{data.tex} 
 	
 	% Include literature
-	\input{literature.tex} % Make sure 'literature.tex' is in the same directory
+	\input{literature.tex}
 	
+	\newpage
 	% References
-	\bibliographystyle{plain}
-	\bibliography{your-bibliography-file} % Replace with the name of your bibliography file
+	\printbibliography
 	
 \end{document}
