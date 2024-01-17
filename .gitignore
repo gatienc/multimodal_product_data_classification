@@ -4,6 +4,18 @@ src/data/images.zip
 #python env
 .venv/
 
+
+#tex
+*.pdf
+*.aux
+*.log
+*.out
+*.bcf
+*.xml
+*.gz
+
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
