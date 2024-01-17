@@ -13,6 +13,10 @@ src/data/images.zip
 *.bcf
 *.xml
 *.gz
+*.fls
+*.fdb_latexmk
+*.bbl
+*.blg
 
 
 
