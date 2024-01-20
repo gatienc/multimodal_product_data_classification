@@ -2,6 +2,26 @@
 \label{sec:method}
 
 \subsection{Data Preparation}
+Data preparation is a critical phase in the modeling process, especially for a task involving complex and diverse datasets like ours. Our data preparation process is designed to ensure that the data fed into the model is clean, structured, and suitable for effective analysis and modeling. The following subsections describe the steps taken to prepare the data for the multimodal product classification task.
+
+\subsubsection{Loading and Initial Cleaning}
+
+The first step involves loading the training data from CSV files. We ensure that any missing values are handled appropriately by filling them with empty strings. This step is crucial to maintain consistency in the dataset. 
+
+\subsubsection{Text Data Preprocessing}
+
+For the 'designation' and 'description' columns, we apply a custom text processing function. This function limits the length of text data to the first 70 tokens, ensuring consistency and manageability in text length. This is also done because we use a CLIP (Contrastive Language–Image Pretraining) model, which can only process up to 76 tokens.
+
+\subsubsection{Categorical Encoding of Labels}
+
+In our multimodal product classification task, the target variable 'prdtypecode' represents the category to which each product belongs. This variable is inherently categorical, meaning it represents discrete, non-numeric categories. Each unique 'prdtypecode' corresponds to a different type of product.
+  
+Categorical Encoding is used because each ‘prdtypecode’ is a distinct category with no inherent numerical relationship or order between them. Categorical encoding ensures that the model treats these categories as separate and distinct without assuming any numerical relationship or hierarchy among them. If left as is, the model might misinterpret the categorical codes as ordinal or interval  data, leading to incorrect assumptions about the proximity or similarity between different categories.
+  
+For this use case One-Hot encoding was used. It converts the categorical target variable into a binary matrix. In this matrix, each category is represented by a vector where only one element is '1', and the rest are '0'. This representation avoids any notion of order or magnitude among categories, which is essential for unbiased classification.  
+With one-hot encoding, no category is given undue preference. For instance, if numeric labels were used directly, the model might assume that higher numbers have more significance or weight, which is not the case in categorical classification.  
+While one-hot encoding is beneficial, it does increase the dimensionality of the dataset. Each unique category becomes a new feature in the dataset. In cases with many categories, this can lead to a large increase in the number of input features, potentially causing issues like the "curse of dimensionality." However, in our context, the benefits of clear and distinct categorical representation outweigh these concerns.
+
 
 \subsection{Visualisation}
 
@@ -16,5 +36,3 @@ CLIP operates on a dual-encoder structure, comprising an image encoder and a tex
 
 In the realm of product classification, CLIP's integration offers a transformative potential. Our model leverages CLIP's proficiency in associating product images with their textual descriptions, such as titles and detailed narratives. This synergy allows for a more nuanced and accurate classification of products into their respective categories.
 
-
-\subsection{Evaluation}
