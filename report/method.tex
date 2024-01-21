@@ -10,18 +10,17 @@ The first step involves loading the training data from CSV files. We ensure that
 
 \subsubsection{Text Data Preprocessing}
 
-For the 'designation' and 'description' columns, we apply a custom text processing function. This function limits the length of text data to the first 70 tokens, ensuring consistency and manageability in text length. This is also done because we use a CLIP (Contrastive Language–Image Pretraining) model, which can only process up to 76 tokens.
+For the 'designation' and 'description' columns, we apply a custom text processing function. This function limits the length of text data to the first 70 tokens, ensuring consistency and manageability in text length. This is also done because a CLIP (Contrastive Language–Image Pretraining) model is used, which can only process up to 76 tokens. For the products where there is no description, only the designation is used. Otherwise, they are combined.
 
 \subsubsection{Categorical Encoding of Labels}
 
 In our multimodal product classification task, the target variable 'prdtypecode' represents the category to which each product belongs. This variable is inherently categorical, meaning it represents discrete, non-numeric categories. Each unique 'prdtypecode' corresponds to a different type of product.
   
-Categorical Encoding is used because each ‘prdtypecode’ is a distinct category with no inherent numerical relationship or order between them. Categorical encoding ensures that the model treats these categories as separate and distinct without assuming any numerical relationship or hierarchy among them. If left as is, the model might misinterpret the categorical codes as ordinal or interval  data, leading to incorrect assumptions about the proximity or similarity between different categories.
+Categorical Encoding is used because each ‘prdtypecode’ is a distinct category with no inherent numerical relationship or order between them. Categorical encoding ensures that the model treats these categories as separate and distinct without assuming any numerical relationship or hierarchy among them \cite{potdar-2017}. If left as is, the model might misinterpret the categorical codes as ordinal or interval  data, leading to incorrect assumptions about the proximity or similarity between different categories.
   
-For this use case One-Hot encoding was used. It converts the categorical target variable into a binary matrix. In this matrix, each category is represented by a vector where only one element is '1', and the rest are '0'. This representation avoids any notion of order or magnitude among categories, which is essential for unbiased classification.  
+For this use case One-Hot encoding was used. It converts the categorical target variable into a binary matrix. In this matrix, each category is represented by a vector where only one element is '1', and the rest are '0' \cite{cerda-2018}. This representation avoids any notion of order or magnitude among categories, which is essential for unbiased classification.  
 With one-hot encoding, no category is given undue preference. For instance, if numeric labels were used directly, the model might assume that higher numbers have more significance or weight, which is not the case in categorical classification.  
-While one-hot encoding is beneficial, it does increase the dimensionality of the dataset. Each unique category becomes a new feature in the dataset. In cases with many categories, this can lead to a large increase in the number of input features, potentially causing issues like the "curse of dimensionality." However, in our context, the benefits of clear and distinct categorical representation outweigh these concerns.
-
+While one-hot encoding is beneficial, it does increase the dimensionality of the dataset. Each unique category becomes a new feature in the dataset. In cases with many categories, this can lead to a large increase in the number of input features, potentially causing issues like the "curse of dimensionality"\cite{altman-2018}. However, in our context, the benefits of clear and distinct categorical representation outweigh these concerns.
 
 \subsection{Visualisation}
 
