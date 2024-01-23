@@ -1,35 +1,59 @@
-\documentclass{article}
+\documentclass[a4paper]{report}
 % Packages and global settings here
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{amsmath}
 \usepackage[backend=biber, style=ieee]{biblatex}
 \usepackage{float}
+\usepackage[T1]{fontenc}
+
+
+\hypersetup{							% Information sur le document
+pdfauthor = {Gatien CHENU,
+			Leon WAGNER,
+			Ines ???,},			% Auteurs
+pdftitle = {Multimodal product data classification},			% Titre du document
+pdfsubject = {Project Report},		% Sujet
+pdfkeywords = {Tag1, Tag2, Tag3, ...},	% Mots-clefs
+pdfstartview={FitH}}					% ajuste la page à la largueur de l'écran
+
+
+%régler l'espacement entre les lignes
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+%page de garde
 \addbibresource{sources.bib}	
 \graphicspath{ {./images/} }
+
 	
 
+\title{\LARGE{"Multimodal product data classification"}}
+\date{\today}
+
 \begin{document}
-	
-	% Include the start page
-	\input{titlepage.tex}
-	
-	% Include the introduction
-	\input{introduction.tex} 
-	
-	% Main content starts
-	\input{data.tex} 
-	
-	\input{method.tex}
-	
-	\input{evaluation.tex}
-	
-	\input{conclusion.tex}
-	
-	% Include literature
-	
-	\newpage
-	% References
-	\printbibliography
-	
+
+% Include the start page
+\input{titlepage.tex}
+
+\tableofcontents
+\newpage
+
+% Include the introduction
+\input{introduction.tex}
+
+% Main content starts
+\input{data.tex}
+
+\input{method.tex}
+
+\input{evaluation.tex}
+
+\input{conclusion.tex}
+
+% Include literature
+
+\newpage
+% References
+\printbibliography
+
 \end{document}
