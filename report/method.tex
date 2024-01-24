@@ -6,11 +6,11 @@ Data preparation is a critical phase in the modeling process, especially for a t
 
 \subsection{Loading and Initial Cleaning}
 
-The first step involves loading the training data from CSV files. We ensure that any missing values are handled appropriately by filling them with empty strings. This step is crucial to maintain consistency in the dataset.
+The first step involves loading the training data from CSV files.  We ensure that any missing values are handled appropriately by filling them with empty strings. This step is crucial to maintain consistency in the dataset.
 
 \subsection{Text Data Preprocessing}
 
-For the 'designation' and 'description' columns, we apply a custom text processing function. This function limits the length of text data to the first 70 tokens, ensuring consistency and manageability in text length. This is also done because a CLIP (Contrastive Language–Image Pretraining) model is used, which can only process up to 76 tokens. For the products where there is no description, only the designation is used. Otherwise, they are combined.
+For the 'designation' and 'description' columns, we apply a custom text processing function. This function limits the length of text data to the first 70 tokens, ensuring consistency and manageability in text length. This is also done because a CLIP (Contrastive Language–Image Pretraining) model is used, which can only process up to 76 tokens. Because the data is then preprocessed by the CLIP model, we do not perform any further text preprocessing.
 
 \subsection{Categorical Encoding of Labels}
 
@@ -29,7 +29,19 @@ While one-hot encoding is beneficial, it does increase the dimensionality of the
 While data preparation sets the stage for clean and structured input, feature extraction is where the true essence of the data is captured, turning raw information into a form that can be understood by the multimodal classification model. This chapter will delve into the methods employed to extract features from images and text, leveraging the power of OpenAI's CLIP model, and detail the subsequent steps that prepare these features for classification.
 
 \subsection{Integrating CLIP for Enhanced Multimodal Product Classification}
-Central to our approach is the integration of OpenAI's CLIP (Contrastive Language–Image Pretraining) model. CLIP embodies a novel paradigm in artificial intelligence, harmonizing the interpretation of visual and textual data through a multimodal learning framework.
+Central to our approach is the integration of OpenAI's CLIP (Contrastive Language–Image Pretraining) model. CLIP is a foundation model based on a transformers and Vit architecture to extract text and image features in the same embedding space.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{clip_description.png}
+    \caption{Clip Model presentation \\ source: pinecone.io}
+    \label{fig:clip-architecture}
+\end{figure}
+
+
+As can be seen in the figure \ref{fig:clip-architecture}, CLIP operates on a dual-encoder structure, comprising an image encoder and a text encoder. This architecture is instrumental in processing and correlating visual and textual inputs. The model's training utilizes a contrastive learning method, where it is exposed to numerous images and their corresponding textual descriptions, drawing from a diverse and extensive internet-sourced dataset. This training enables CLIP to develop a nuanced understanding of the intricate relationships between text and images \cite{radford-2021}.
+We are going to use the Clip Model, hoping that the feature extraction done by the clip encoder will provide embeddings that will be separable by the classifier.
 
 \begin{figure}[H]
     \centering
@@ -37,8 +49,6 @@ Central to our approach is the integration of OpenAI's CLIP (Contrastive Languag
     \caption{Proposed architecture of Hate-CLIPper for Multimodal Hateful Meme Classification \cite{radford-2021}}
     \label{fig:architecture}
 \end{figure}
-
-As can be seen in the figure \ref{fig:architecture}, CLIP operates on a dual-encoder structure, comprising an image encoder and a text encoder. This architecture is instrumental in processing and correlating visual and textual inputs. The model's training utilizes a contrastive learning method, where it is exposed to numerous images and their corresponding textual descriptions, drawing from a diverse and extensive internet-sourced dataset. This training enables CLIP to develop a nuanced understanding of the intricate relationships between text and images \cite{radford-2021}.
 
 In the realm of product classification, CLIP's integration offers a transformative potential. Our model leverages CLIP's proficiency in associating product images with their textual descriptions, such as titles and detailed narratives. This synergy allows for a more nuanced and accurate classification of products into their respective categories.
 
