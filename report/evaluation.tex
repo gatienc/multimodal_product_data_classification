@@ -1,2 +1,29 @@
 \chapter{Evaluation}
 \label{sec:evaluation}
+\section{Comparison of different models} 
+
+\begin{equation}
+	F1 = \frac{2 \times \text{TP}}{2 \times \text{TP} + \text{FN} + \text{FP}}
+\end{equation}
+
+The F1 score is a statistical measure used to evaluate the precision and recall of a model's predictions, essentially capturing the balance between the model's accuracy and its comprehensiveness in identifying relevant instances. Precision represents the accuracy of positive predictions, while recall measures the model's ability to identify all actual positive instances. The F1 score is the harmonic mean of precision and recall, thus ensuring that both metrics contribute equally to the final score, with a perfect F1 score being 1 and the worst being 0.
+
+\begin{equation}
+	\text{Weighted F1} = \sum_{i=1}^{N} w_i \times F1_i
+\end{equation}
+
+The weighted F1 score extends this concept by taking into account the class imbalance within a dataset. In scenarios where some classes are more prevalent than others, the weighted F1 score calculates a separate F1 score for each class, giving each score a weight proportional to the number of true instances for each class. This approach prevents the model's performance from being overly influenced by its effectiveness on the more common classes, instead emphasizing its overall performance across all classes. The weighted F1 score is particularly valuable in datasets with significant class imbalances, as it provides a more representative assessment of the model's predictive power.
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|l|l|l|l|l|}
+		\hline
+		Model & weighted-F1 score  \\ \hline
+		CLIP & \textbf{0.837}  \\ 
+		Only designation & 0.779  \\ 
+		Benchmark &  0.814  \\  
+		\hline
+	\end{tabular}
+	\caption{Sample Table}
+	\label{tab:my_label}
+\end{table}
