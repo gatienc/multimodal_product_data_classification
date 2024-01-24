@@ -31,13 +31,16 @@ pdfstartview={FitH}}					% ajuste la page à la largueur de l'écran
 \date{\today}
 
 \begin{document}
+\pagenumbering{gobble} %disable page numbers
 
 % Include the start page
 \input{titlepage.tex}
 
+\pagenumbering{roman} % set page numbering to roman
 \tableofcontents
 \newpage
 
+\pagenumbering{arabic} % set page numbering to arabic and start from 1
 % Include the introduction
 \input{introduction.tex}
 
