@@ -38,10 +38,21 @@ It can be seen that integrating the images and the text data into one model give
 
 A confusion matrix is a powerful tool for evaluating the performance of a classification model, providing a visual representation of the model's predictions compared against the actual labels. It not only reveals the instances of correct and incorrect predictions for each class but also uncovers the specific types of errors, such as which classes are being confused with others, enabling a nuanced analysis of the model's strengths and weaknesses \cite{susmaga-2004}.
 
+We split our data into three parts: 80\% for training the model, 10\% for testing it, and another 10\% to validate how well it's doing. The confusion matrix we're looking at is based on this 10\% validation chunk.
+
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.6\textwidth]{confusion_matrix.jpg}
-	\caption{Confusion matrix of CLIP model}
+	\caption{Confusion matrix}
 	\label{fig:confusionmatrix}
 \end{figure}
 
+The confusion matrix for our model gives us a clear picture of how well it's guessing the types of products. Most products are being placed in the right categories, which we can tell because there are lots of big numbers forming a line from the top left to the bottom right. This line shows where the model's guesses match the real answers.
+
+While the model does a great job with many types of products, there are a few areas where it's not as accurate and could be better. But, there aren't too many mistakes overall, which is a good sign that our model isn't just memorizing the training data but actually learning from it.
+
+This is confirmed by how well the model does on a completely new set of products it hasn't seen before, getting a score of 0.83. This means it's pretty good at applying what it's learned to new data.
+
+Even though the confusion matrix might make us think the model has learned the training data too well, its good scores on both the validation data and the new test set from the challenge show that's not the case. It's not just repeating what it saw during training; it's making smart guesses on new products.
+
+From the confusion matrix and the model's scores, it's clear that we've built a strong model that's good at figuring out what category different products belong to. It does well even with products it hasn't seen before, which proves our methods are working well.
