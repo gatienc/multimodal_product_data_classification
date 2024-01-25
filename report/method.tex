@@ -32,7 +32,7 @@ Central to our approach is the integration of OpenAI's CLIP (Contrastive Languag
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{clip_description.png}
-    \caption{Clip Model presentation \\ source: pinecone.io}
+    \caption{Clip Model presentation}
     \label{fig:clip-architecture}
 \end{figure}
 
@@ -73,3 +73,11 @@ At the core of our feature extraction process lies the Feature Interaction Matri
 \section{Classification}
 
 After flattening  the FIM, we used a simple 2 layer linear classifier to predict the prdtypecode. The classifier is a simple linear layer . The model is trained with the cross entropy loss function, Adam optimizer with a learning rate of 0.001, with a batch size of 128.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{model.png}
+    \caption{Architecture of our multimodal model}
+    \label{fig:model}
+\end{figure}
