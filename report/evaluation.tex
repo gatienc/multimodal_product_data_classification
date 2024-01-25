@@ -59,3 +59,25 @@ This is confirmed by how well the model does on a completely new set of products
 Even though the confusion matrix might make us think the model has learned the training data too well, its good scores on both the validation data and the new test set from the challenge show that's not the case. It's not just repeating what it saw during training; it's making smart guesses on new products.
 
 From the confusion matrix and the model's scores, it's clear that we've built a strong model that's good at figuring out what category different products belong to. It does well even with products it hasn't seen before, which proves our methods are working well.
+
+
+\section{Difference between the results on clean test set and our test set}
+
+When training the model, as  we said during the previous chapter we took care to separate the training, valid and test sets, with a ratio of 80\% training, 10\% valid and 10\% test. The test set was not used during the training of the model and was only used for the final evaluation of the model. The valid set was used to evaluate the model during the training process. During the training of the fusion model, we got a weighted F1 score that was really high, with only one epoch, the F1 score got up to 0.950 and climbed to 0.960 at epoch 7 on the validation set, so the result was impressive. And we thoughts we would have comparable results on the website test set.
+
+
+However, when we tested the model on the website test, the weighted F1 score was only 0.837. This is a big difference between the true value and the one we got on the training and test data sets. We also note that this is not just bad luck, because we got exactly the same kind result when we tested a model that concatenated the results of the feature extraction instead of multiplying them.
+
+We don't have an exact answer for this change in behaviour, it looks like there is some kind of data leakage during our training process, our first idea was that there were some kind of complete data leakage (train, valid and test dataset were completely mixed up), however, after careful review of the code we did not find it  but we find some source of potential answer to this phenomenon:
+
+\subsection{Data Leakage Transfer}
+
+When we trained the first text model, we did not paid attention that the train, test and valid dataset were the same as the one we used for the fusion model. So a potential reason for the difference in the results is that the text model contains information of the train, test and valid dataset of the fusion model, so it is easier for the fusion model to predict the result of the test dataset.
+
+\subsection{Vocabulary decision}
+
+As said in \ref{sec:method}, we created a vocabulary by keeping only the words that were present in the product designation of the training dataset (train,valid and test mixed up). Our embedding do not use any kind of pre-training so it should not be a direct reason for the difference in the results, however, we think that it could have an impact on the results. Maybe in the architecture a weakly trained token (a word that appears 0 or 1 time in the dataset) could have a big impact on the results, bigger than the case where the world would not be present (case were the word is not in the vocabulary (clean validation set from the website)). We think that it could be a potential reason for the difference in the results.
+
+\subsection{Difference between the training and testing dataset}
+
+In real world use case, production data (data that will be provided to model inference) can be very different than the collected data for training. So maybe Rakuten added a bit of challenge by providing a test dataset that is  different than the training dataset. We think that it could be a potential reason for the difference in the results. However it is not a very likely because when we tested the previous model (text model with only designation for example) we did not seen that kind of difference.
