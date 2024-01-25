@@ -12,7 +12,7 @@ The F1 score is a statistical measure used to evaluate the precision and recall 
 	\text{Weighted F1} = \sum_{i=1}^{N} w_i \times F1_i
 \end{equation}
 
-The weighted F1 score extends this concept by taking into account the class imbalance within a dataset. In scenarios where some classes are more prevalent than others, the weighted F1 score calculates a separate F1 score for each class, giving each score a weight proportional to the number of true instances for each class. This approach prevents the model's performance from being overly influenced by its effectiveness on the more common classes, instead emphasizing its overall performance across all classes. The weighted F1 score is particularly valuable in datasets with significant class imbalances, as it provides a more representative assessment of the model's predictive power.
+The weighted F1 score extends this concept by taking into account the class imbalance within a dataset. In scenarios where some classes are more prevalent than others, the weighted F1 score calculates a separate F1 score for each class, giving each score a weight proportional to the number of true instances for each class. This approach prevents the model's performance from being overly influenced by its effectiveness on the more common classes, instead emphasizing its overall performance across all classes. The weighted F1 score is particularly valuable in datasets with significant class imbalances, as it provides a more representative assessment of the model's predictive power \cite{leung-2022}.
 
 \begin{table}[h]
 	\centering
@@ -28,3 +28,4 @@ The weighted F1 score extends this concept by taking into account the class imba
 	\label{tab:my_label}
 \end{table}
 
+The CLIP model, which uses the designation and description field, as well as the images, got the best performance with an weighted F1 score of 0.837. 
