@@ -24,9 +24,11 @@ The weighted F1 score extends this concept by taking into account the class imba
 		Benchmark &  0.814  \\  
 		\hline
 	\end{tabular}
-	\caption{Sample Table}
-	\label{tab:my_label}
+	\caption{Weighted-F1 scores}
+	\label{tab:f1scores}
 \end{table}
+
+Table \ref{tab:f1scores} displays the range of weighted-F1 scores achieved by our model. These scores were obtained from a test set submitted to the challenge website, for which we did not have direct access to the true labels. 
 
 The CLIP model, which uses the designation and description field, as well as the images, got the best performance with an weighted F1 score of 0.837. In contrast, the text-only model, which relies solely on product designations, achieved a weighted F1 score of 0.779. While this model benefits from the informative nature of the product titles, it lacks the additional contex that images provide. The reduction in the weighted F1 score when compared to the full CLIP model underscores the value of incorporating visual features into the classification process.
 
