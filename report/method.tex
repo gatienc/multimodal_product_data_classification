@@ -11,7 +11,7 @@ To pre-process the "designation" and "description" columns, a custom word-proces
 Then the text was tokenized, to keep a vocabulary size relatively small, we only kept the word that were present in the product designation of the training dataset (train,valid and test mixed up).
 Now that we are writing these lines after fusion model training, we think that we should have separate the train, valid and test dataset before tokenizing the text. So we would have kept only the words that were present in the training dataset. We would see in the future why we think it caused some issues, also we should have kept only the words that were the most frequent so the vocabulary size would have decreased much (many word appears only once).\\
 
-The sequences were then padded to a maximum length of 34, it is the maximum number of words in the designation. The transformation applied on the product description was the same as the product designation. Even if the description can be much longer than the designation, we decided to keep the same maximum length for both, so it makes the fusion of the text features easier, and we also remarked by reading the description in the dataset that longer description were not necessarily more informative. Sometimes, the end of the description was just general information about the seller.\\
+The sequences were then padded to a maximum length of 34, it is the maximum number of words in the designation. The transformation applied on the product description was the same as the product designation. Even if the description can be much longer than the designation, we decided to keep the same maximum length for both, so it makes the fusion of the text features easier, and we also remarked by reading the description in the dataset that longer description were not necessarily more informative.\\
 
 \subsection{Image Data Preprocessing}
 
@@ -76,13 +76,13 @@ We succeeded reaching a 0.747 weighted F1-score on the test dataset of the chall
 
 \end{figure}
 
-At the core of our feature extraction process lies the Feature Interaction Matrix (FIM),wich is obtained by calculating the product between the image features anf the text features, the obtained matrices captures the intricate relationships between textual and visual features (see Figure \ref{fig:hateclipper}). This approach, as outlined in the "Hate-CLIPper" paper \cite{kumar2022hateclipper}, effectively harnesses the strengths of CLIP's robust feature extraction capabilities while expanding its ability to discern the intricate associations that simpler models might overlook. The FIM consequently enables a more holistic and contextually aware representation of the data, augmenting the model's capacity for accurate classification in complex multimodal tasks.
+At the core of our feature extraction process lies the Feature Interaction Matrix (FIM), wich is obtained by calculating the product between the image features anf the text features, the obtained matrices captures the intricate relationships between textual and visual features (see Figure \ref{fig:hateclipper}). This approach, as outlined in the "Hate-CLIPper" paper \cite{kumar2022hateclipper}, effectively harnesses the strengths of CLIP's robust feature extraction capabilities while expanding its ability to discern the intricate associations that simpler models might overlook. The FIM consequently enables a more holistic and contextually aware representation of the data, augmenting the model's capacity for accurate classification in complex multimodal tasks.
 
 \section{Classification}
 
 After flattening  the FIM, we used a simple 2 layer linear classifier to predict the prdtypecode. The classifier is a simple linear layer . The model is trained with the cross entropy loss function, SGD optimizer with a learning rate of 0.001 and a 0.9 momentum was used, and the model was trained with a batch size of 128.
 
-It takes approximately 4 hours per epoch to train the model on a A 200 GPU . According to our observation the first epoch is a really good observation of what we would expect with longer training.
+It takes approximately 4 hours per epoch to train the model on a A 200 GPU. According to our observation the first epoch is a really good observation of what we would expect with longer training. And more epoch improves only of few percent, it means that the dataset size is big enough for our task.
 
 The time that takes the model to be trained is mostly due to the Clip model wich is an expensive transformers architecture. We could also have used a projection layer from the Clip features to an embedding layer the same as the text features, but we did not have time to try it.
 
