@@ -13,13 +13,19 @@ Now that we are writing these lines after fusion model training, we think that w
 
 The sequences were then padded to a maximum length of 34, it is the maximum number of words in the designation. The transformation applied on the product description was the same as the product designation. Even if the description can be much longer than the designation, we decided to keep the same maximum length for both, so it makes the fusion of the text features easier, and we also remarked by reading the description in the dataset that longer description were not necessarily more informative. Sometimes, the end of the description was just general information about the seller.\\
 
+\subsection{Image Data Preprocessing}
+
+we remarked that many images were zero padded with a white background, so we decided to remove the white background of the images. We applied a model to find the smallest bounding box that contains no pixels not white, and then we cropped the image to this bounding box.\\
+Then we resized the images to 224x224 pixels, because it is the size of the images that were used to train the Clip model.\\
+
+The image data was then preprocessed using the CLIP model's built-in image preprocessing function, we did not do any  other research on the image preprocessing, because we thought that the Clip model would have a good preprocessing function.\\
 
 
 \subsection{Categorical Encoding of Labels}
 
 In our multimodal product classification task, the target variable 'prdtypecode' represents the category to which each product belongs. This variable is inherently categorical, meaning it represents discrete, non-numeric categories. Each unique 'prdtypecode' corresponds to a different type of product.
 
-Categorical Encoding is used because each ‘prdtypecode’ is a distinct category with no inherent numerical relationship or order between them. Categorical encoding ensures that the model treats these categories as separate and distinct without assuming any numerical relationship or hierarchy among them \cite{potdar-2017}. If left as is, the model might misinterpret the categorical codes as ordinal or interval  data, leading to incorrect assumptions about the proximity or similarity between different categories.
+Categorical Encoding is used because each 'prdtypecode' is a distinct category with no inherent numerical relationship or order between them. Categorical encoding ensures that the model treats these categories as separate and distinct without assuming any numerical relationship or hierarchy among them \cite{potdar-2017}. If left as is, the model might misinterpret the categorical codes as ordinal or interval  data, leading to incorrect assumptions about the proximity or similarity between different categories.
 
 For this use case One-Hot encoding was used. It converts the categorical target variable into a binary matrix. In this matrix, each category is represented by a vector where only one element is '1', and the rest are '0' \cite{cerda-2018}. This representation avoids any notion of order or magnitude among categories, which is essential for unbiased classification.
 With one-hot encoding, no category is given undue preference. For instance, if numeric labels were used directly, the model might assume that higher numbers have more significance or weight, which is not the case in categorical classification.
