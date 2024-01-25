@@ -50,11 +50,11 @@ The model provides an impressive 0.96\% f1 accuracy score on the validation data
 	\label{fig:confusionmatrix}
 \end{figure}
 
-The confusion matrix for our model gives us a clear picture of how well it's guessing the types of products. Most products are being placed in the right categories, which we can tell because there are lots of big numbers forming a line from the top left to the bottom right. This line shows where the model's guesses match the real answers.
+The confusion matrix for our model on the evaluation data gives us a clear picture of how well it's guessing the types of products. Most products are being placed in the right categories, which we can tell because there are lots of big numbers forming a diagonal line from the top left to the bottom right. This line shows where the model's guesses match the real answers.
 
 While the model does a great job with many types of products, there are a few areas where it's not as accurate and could be better. But, there aren't too many mistakes overall, which is a good sign that our model isn't just memorizing the training data but actually learning from it.
 
-This is confirmed by how well the model does on a completely new set of products it hasn't seen before, getting a score of 0.83. This means it's pretty good at applying what it's learned to new data.
+This is confirmed by how well the model does on a completely new set of products it hasn't seen before (table \ref*{tab:f1scores}: CLIP: 0.837). This means it's pretty good at applying what it's learned to new data.
 
 Even though the confusion matrix might make us think the model has learned the training data too well, its good scores on both the validation data and the new test set from the challenge show that's not the case. It's not just repeating what it saw during training; it's making smart guesses on new products.
 
