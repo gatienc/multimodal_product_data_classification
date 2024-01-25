@@ -20,7 +20,7 @@ For this use case One-Hot encoding was used. It converts the categorical target 
 With one-hot encoding, no category is given undue preference. For instance, if numeric labels were used directly, the model might assume that higher numbers have more significance or weight, which is not the case in categorical classification.
 While one-hot encoding is beneficial, it does increase the dimensionality of the dataset. Each unique category becomes a new feature in the dataset. In cases with many categories, this can lead to a large increase in the number of input features, potentially causing issues like the "curse of dimensionality"\cite{altman-2018}. However, in our context, the benefits of clear and distinct categorical representation outweigh these concerns.
 
-\section{Visualisation}
+% \section{Visualisation}
 
 \section{Feature Extraction}
 
@@ -32,8 +32,7 @@ Central to our approach is the integration of OpenAI's CLIP (Contrastive Languag
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{clip_description.png}
-    \caption{Clip Model presentation}
-    \label{fig:clip-architecture}
+    \caption{\label{fig:clip-architecture}Clip Model presentation}
 \end{figure}
 
 
@@ -62,8 +61,8 @@ We succeeded reaching a 0.747 weighted F1-score. After the training of this mode
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{hateclip.png}
-    \caption{Proposed architecture of Hate-CLIPper for Multimodal Hateful Meme Classification}
-    \label{fig:hateclipper}
+    \caption{\label{fig:hateclipper} Proposed architecture of Hate-CLIPper for Multimodal Hateful Meme Classification}
+
 \end{figure}
 
 \subsection{Feature Interaction Matrix}
