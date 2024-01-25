@@ -6,7 +6,12 @@ Data preparation is a critical phase in the modeling process, especially for a t
 
 \subsection{Text Data Preprocessing}
 
-To pre-process the "designation" and "description" columns, a custom word-processing function was applied. This function removed HTML tags, replaced accented characters with their corresponding unaccented counterparts, removed special characters and converted all characters to lowercase. These preprocessing steps were selected iteratively in parrallel with the evaluation of the text-feature extraction model. Some preprocessing were surprinsingly not beneficial to the model performance, such as removing stopwords.
+To pre-process the "designation" and "description" columns, a custom word-processing function was applied. This function removed HTML tags, replaced accented characters with their corresponding unaccented counterparts, removed special characters and converted all characters to lowercase. These preprocessing steps were selected iteratively in parrallel with the evaluation of the text features extraction model. Some preprocessing were surprinsingly not beneficial to the model performance, such as removing stopwords.\\
+
+Then the text was tokenized, to keep a vocabulary size relatively small, we only kept the word that were present in the product designation of the training dataset (train,valid and test mixed up).
+Now that we are writing these lines after fusion model training, we think that we should have separate the train, valid and test dataset before tokenizing the text. So we would have kept only the words that were present in the training dataset. We would see in the future why we think it caused some issues, also we should have kept only the words that were the most frequent so the vocabulary size would have decreased much (many word appears only once).\\
+
+The sequences were then padded to a maximum length of 34, it is the maximum number of words in the designation. The transformation applied on the product description was the same as the product designation. Even if the description can be much longer than the designation, we decided to keep the same maximum length for both, so it makes the fusion of the text features easier, and we also remarked by reading the description in the dataset that longer description were not necessarily more informative. Sometimes, the end of the description was just general information about the seller.\\
 
 
 
@@ -44,7 +49,7 @@ For our use case, We are going to use only the image feature extraction part of 
 
 \subsection{Textual Feature Extraction}
 
-For the extraction of the features we used a classification model, we used CNN classifier trained both on the designation (product titles) and the non null description fields. The input size is the maximum possible designation length, 34 in this case. Shorter inputs are zero-padded. The architecture consists of an embedding layer and 6 convolutional (with ReLu), max-pooling blocks. The embeddings are trained with the entire architecture. Following is the model architecture:
+For the extraction of the features we used a classification model, we used CNN classifier trained both on the designation (product titles) and the non null description fields. The input size is the maximum possible designation length, 34 in this case. Shorter inputs are zero-padded. The architecture consists of an embedding layer and 6 convolutional (with ReLu), max-pooling blocks. The embeddings are trained with the entire architecture. The model architecture can be seen in the figure \ref{fig:text-model}
 
 \begin{figure}[H]
     \centering
@@ -54,7 +59,7 @@ For the extraction of the features we used a classification model, we used CNN c
 \end{figure}
 
 
-We succeeded reaching a 0.747 weighted F1-score. After the training of this model, we extracted the embeddings of the last linear layer. The embeddings are of size 768, wich match the size of the CLIP embeddings. We then used these embeddings as input for the multimodal model.
+We succeeded reaching a 0.747 weighted F1-score on the test dataset of the challenge. After the training of this model, we extracted the embeddings of the last linear layer. The embeddings are of size 768, wich match the size of the CLIP embeddings. We then used these embeddings as input for the multimodal model.
 
 \subsection{Features Fusion}
 
@@ -65,14 +70,17 @@ We succeeded reaching a 0.747 weighted F1-score. After the training of this mode
 
 \end{figure}
 
-\subsection{Feature Interaction Matrix}
-
 At the core of our feature extraction process lies the Feature Interaction Matrix (FIM),wich is obtained by calculating the product between the image features anf the text features, the obtained matrices captures the intricate relationships between textual and visual features (see Figure \ref{fig:hateclipper}). This approach, as outlined in the "Hate-CLIPper" paper \cite{kumar2022hateclipper}, effectively harnesses the strengths of CLIP's robust feature extraction capabilities while expanding its ability to discern the intricate associations that simpler models might overlook. The FIM consequently enables a more holistic and contextually aware representation of the data, augmenting the model's capacity for accurate classification in complex multimodal tasks.
 
 \section{Classification}
 
-After flattening  the FIM, we used a simple 2 layer linear classifier to predict the prdtypecode. The classifier is a simple linear layer . The model is trained with the cross entropy loss function, Adam optimizer with a learning rate of 0.001, with a batch size of 128.
+After flattening  the FIM, we used a simple 2 layer linear classifier to predict the prdtypecode. The classifier is a simple linear layer . The model is trained with the cross entropy loss function, SGD optimizer with a learning rate of 0.001 and a 0.9 momentum was used, and the model was trained with a batch size of 128.
 
+It takes approximately 4 hours per epoch to train the model on a A 200 GPU . According to our observation the first epoch is a really good observation of what we would expect with longer training.
+
+The time that takes the model to be trained is mostly due to the Clip model wich is an expensive transformers architecture. We could also have used a projection layer from the Clip features to an embedding layer the same as the text features, but we did not have time to try it.
+
+As the variety of product is quite large, we think that it is interesting to use a foundation model that already seen a lot of unique products, and that is why we chose to use the Clip model. We think that the model could have been improved by using a model that is trained on a dataset that is more similar to the one we are using, but we did found one.
 
 \begin{figure}[H]
     \centering
