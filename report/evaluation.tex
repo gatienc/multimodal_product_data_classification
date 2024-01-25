@@ -1,6 +1,6 @@
 \chapter{Evaluation}
 \label{sec:evaluation}
-\section{Comparison of different models} 
+\section{Comparison of different models}
 
 \begin{equation}
 	F1 = \frac{2 \times \text{TP}}{2 \times \text{TP} + \text{FN} + \text{FP}}
@@ -18,21 +18,21 @@ The weighted F1 score extends this concept by taking into account the class imba
 	\centering
 	\begin{tabular}{|l|l|l|l|l|}
 		\hline
-		Model & weighted-F1 score  \\ \hline
-		CLIP & \textbf{0.837}  \\ 
-		Only designation & 0.779  \\ 
-		Benchmark &  0.814  \\  
+		Model            & weighted-F1 score \\ \hline
+		CLIP             & \textbf{0.837}    \\
+		Only designation & 0.779             \\
+		Benchmark        & 0.814             \\
 		\hline
 	\end{tabular}
 	\caption{Weighted-F1 scores}
 	\label{tab:f1scores}
 \end{table}
 
-Table \ref{tab:f1scores} displays the range of weighted-F1 scores achieved by our model. These scores were obtained from a test set submitted to the challenge website, for which we did not have direct access to the true labels. 
+Table \ref{tab:f1scores} displays the range of weighted-F1 scores achieved by our model. These scores were obtained from a test set submitted to the challenge website, for which we did not have direct access to the true labels.
 
-The CLIP model, which uses the designation and description field, as well as the images, got the best performance with an weighted F1 score of 0.837. In contrast, the text-only model, which relies solely on product designations, achieved a weighted F1 score of 0.779. While this model benefits from the informative nature of the product titles, it lacks the additional contex that images provide. The reduction in the weighted F1 score when compared to the full CLIP model underscores the value of incorporating visual features into the classification process.
+The CLIP model, which uses the designation and description field, as well as the images, got the best performance with an weighted F1 score of 0.837 (on the clean website test set). In contrast, the text-only model, which relies solely on product designations, achieved a weighted F1 score of 0.779 (on the clean website test set). While this model benefits from the informative nature of the product titles, it lacks the additional contex that images provide. The reduction in the weighted F1 score when compared to the full CLIP model underscores the value of incorporating visual features into the classification process.
 
-The benchmark model, established by the challenge organizers, serves as a standard for comparison, achieving a weighted F1 score of 0.814. While this model demonstrates a strong baseline performance, it falls short of the full CLIP model's capabilites.
+The benchmark model, established by the challenge organizers, serves as a standard for comparison, achieving a weighted F1 score of 0.814 (on the clean website test set). While this model demonstrates a strong baseline performance, it falls short of the full CLIP model's capabilites.
 
 It can be seen that integrating the images and the text data into one model gives better results than just using the text alone. It highlights the need for models that can effectively synthesize information from multiple sources, providing a more holistic view of the data at hand.
 
@@ -40,11 +40,12 @@ It can be seen that integrating the images and the text data into one model give
 
 A confusion matrix is a powerful tool for evaluating the performance of a classification model, providing a visual representation of the model's predictions compared against the actual labels. It not only reveals the instances of correct and incorrect predictions for each class but also uncovers the specific types of errors, such as which classes are being confused with others, enabling a nuanced analysis of the model's strengths and weaknesses \cite{susmaga-2004}.
 
-We split our data into three parts: 80\% for training the model, 10\% for testing it, and another 10\% to validate how well it's doing. The confusion matrix we're looking at is based on this 10\% validation chunk.
+We split our data into three parts: 80\% for training the model, 10\% for testing it, and another 10\% to validate how well it's doing. The confusion matrix we're looking at is based on this 10\% validation chunk.\\
+The model provides an impressive 0.96\% f1 accuracy score on the validation data, we'll see in the future potential reasons why it did not worked as well on the clean website test set.\\
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=1\textwidth]{confusion_matrix.jpg}
+	\includegraphics[width=1\textwidth]{confusion_matrix.png}
 	\caption{Confusion matrix}
 	\label{fig:confusionmatrix}
 \end{figure}
